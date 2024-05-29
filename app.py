@@ -40,9 +40,9 @@ except ImportError:
 
 
 import os
-os.environ["OPENAI_API_KEY"]=st.secrets('openai_key')
+os.environ["OPENAI_API_KEY"]=st.secrets("openai_key")
 
-os.environ["TOGETHER_API_KEY"]=st.secrets('togetherai_key')
+os.environ["TOGETHER_API_KEY"]=st.secrets("togetherai_key")
 
 from langchain_together import Together
 
