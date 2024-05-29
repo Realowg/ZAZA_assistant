@@ -503,7 +503,7 @@ chosen_tab = hc.option_bar(
 # streamlit_analytics.start_tracking()
 
 # Credit
-st.sidebar.image(r"C:\Users\Midhun\upwork\ZAZA\project\img\Logo_4.png",width=150,use_column_width=True)
+st.sidebar.image(r"img\Logo_4.png",width=150,use_column_width=True)
 
 
 if __name__ == '__main__':
