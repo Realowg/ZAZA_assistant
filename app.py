@@ -9,14 +9,11 @@ from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 import streamlit as st
 from werkzeug.utils import secure_filename
-from langchain.text_splitter import CharacterTextSplitter
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import FAISS
 from langchain.chains import LLMChain, ConversationalRetrievalChain
 from langchain.chat_models import ChatOpenAI
 import json
@@ -49,6 +46,12 @@ from langchain_together import Together
 CodeLlama = Together(
     model="codellama/CodeLlama-70b-Python-hf",
 
+)
+
+st.set_page_config(
+    page_title='ZAZA',
+    page_icon=r"img\ZAZA.png",
+    # initial_sidebar_state="expanded"
 )
 def disclaimer():
     modal2 = Modal(key="ZAZA Key", title="Disclaimers - Welcome to ZAZA AI Assistant", padding=5, max_width=900)
@@ -144,11 +147,7 @@ user_authentication_tab()
 
 
 # ******************************************************************************************************************************************************************************************************************************************************************************************************
-st.set_page_config(
-    page_title='ZAZA',
-    page_icon=r"C:\Users\Midhun\upwork\Task-1\Eve-Coding-Assistant\AppV7\TFinder\TFinder\img\ZAZA.png",
-    # initial_sidebar_state="expanded"
-)
+
 
 if 'lottie' not in st.session_state:
     st.session_state.lottie = False
