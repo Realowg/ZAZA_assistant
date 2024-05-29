@@ -51,7 +51,7 @@ CodeLlama = Together(
 
 )
 def disclaimer():
-    modal2 = Modal(key="ZAZA Key", title="Disclaimers - Welcome to ZAZA AI Assistant", padding=10, max_width=900)
+    modal2 = Modal(key="ZAZA Key", title="Disclaimers - Welcome to ZAZA AI Assistant", padding=5, max_width=900)
 
     if 'popup_closed' not in st.session_state:
         st.session_state.popup_closed = False
