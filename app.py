@@ -102,7 +102,6 @@ def user_authentication_tab():
     if 'popup_closed' not in st.session_state:
         st.session_state.popup_closed = False
     
-
     if not st.session_state.popup_closed:
         with modal.container():
             with st.expander("User Authentication", expanded=True):
@@ -114,15 +113,26 @@ def user_authentication_tab():
                     password = st.text_input("Password:", type='password')
                     def click_button():
                         if authenticate_user(email=email,password=password):
-                            st.session_state.popup_closed = True
                             st.session_state.user_authenticated = True
                             # disclaimer()
-
                         else:
                             st.caption('Incorrect Username or Password.')
                         # st.session_state.popup_closed = True
                     # st.button('Click me', on_click=click_button)
-                    st.button("Login",on_click=click_button)
+                    if 'button' not in st.session_state:
+                        st.session_state.button = False
+                    
+                    def click_button():
+                        st.session_state.button = not st.session_state.button
+                    
+                    st.button('Click me', on_click=click_button)
+                    
+                    if st.session_state.button:
+                        # The message and nested widget will remain on the page
+                        st.write('Button is on!')
+                        st.slider('Select a value')
+                    else:
+                        st.write('Button is off!')
 
 
 
