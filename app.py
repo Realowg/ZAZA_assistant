@@ -283,7 +283,7 @@ def settings():
 
     # with st.sidebar:
     #     # user_authentication_tab()
-    if st.session_state.user_authenticated:
+    # if st.session_state.user_authenticated:
         with st.expander(label="Settings",expanded=True):
             coding_settings_tab, chatbot_settings_tab = st.tabs(['Coding','ChatBot'])
             with coding_settings_tab:
@@ -534,7 +534,7 @@ if __name__ == '__main__':
 
     elif chosen_tab == CONTACT:
         settings()
-        st.write("coming soon")
+        # st.write("coming soon")
 
     for i in range(4):
         st.markdown('#')
