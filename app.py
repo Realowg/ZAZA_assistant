@@ -43,10 +43,7 @@ os.environ["TOGETHER_API_KEY"]=st.secrets["togetherai_key"]
 
 from langchain_together import Together
 
-CodeLlama = Together(
-    model="codellama/CodeLlama-70b-Python-hf",
 
-)
 
 
 def disclaimer():
@@ -151,7 +148,10 @@ def load_lottiefile(filepath: str):
 
 user_authentication_tab()
 set_page_config()
+CodeLlama = Together(
+    model="codellama/CodeLlama-70b-Python-hf",
 
+)
 # ******************************************************************************************************************************************************************************************************************************************************************************************************
 
 
