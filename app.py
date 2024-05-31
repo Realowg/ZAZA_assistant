@@ -115,7 +115,7 @@ def user_authentication_tab():
                     def click_button():
                         st.session_state.popup_closed = True
                     # st.button('Click me', on_click=click_button)
-                    if st.button("Login",on_click=click_button):
+                    with st.button("Login",on_click=click_button):
                         if authenticate_user(email=email,password=password):
                             # st.session_state.popup_closed = True
                             st.session_state.user_authenticated = True
