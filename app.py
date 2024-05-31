@@ -143,7 +143,7 @@ user_authentication_tab()
 # ******************************************************************************************************************************************************************************************************************************************************************************************************
 st.set_page_config(
     page_title='ZAZA',
-    page_icon=r"C:\Users\Midhun\upwork\Task-1\Eve-Coding-Assistant\AppV7\TFinder\TFinder\img\ZAZA.png",
+    page_icon=r"img\ZAZA.png",
     # initial_sidebar_state="expanded"
 )
 
@@ -151,7 +151,7 @@ st.set_page_config(
 #     st.session_state.lottie = False
 
 # if not st.session_state.lottie:
-#     lottfinder = load_lottiefile(r"C:\Users\Midhun\upwork\Task-1\Eve-Coding-Assistant\AppV7\TFinder\TFinder\.streamlit\Animation - 1715971093216.json")
+#     lottfinder = load_lottiefile(r".streamlit\Animation - 1715971093216.json")
 #     st.lottie(lottfinder, speed=1.3, loop=False)
 
 #     time.sleep(10)
@@ -507,7 +507,7 @@ chosen_tab = hc.option_bar(
 # streamlit_analytics.start_tracking()
 
 # Credit
-st.sidebar.image(r"C:\Users\Midhun\upwork\ZAZA\project\img\Logo_4.png",width=150,use_column_width=True)
+st.sidebar.image(r"img\Logo_4.png",width=150,use_column_width=True)
 
 
 if __name__ == '__main__':
