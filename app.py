@@ -471,7 +471,7 @@ def allapp_page():
 
 def resource_page():
     # st.sidebar.set_visible(False)
-    with st.sidebar:
+    # with st.sidebar:
         # st.write("This is the Resource page")
         handle_initial_submit()
         handle_user_message()
