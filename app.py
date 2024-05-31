@@ -50,7 +50,7 @@ st.set_page_config(
     # initial_sidebar_state="expanded"
 )
 CodeLlama = Together(
-    model="codellama/CodeLlama-70b-Python-hf",
+    model="codellama/CodeLlama-70b-Python-hf",)
 
 
 def disclaimer():
