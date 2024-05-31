@@ -113,16 +113,17 @@ def user_authentication_tab():
                     email = st.text_input("Email:") 
                     password = st.text_input("Password:", type='password')
                     def click_button():
-                        st.session_state.popup_closed = True
-                    # st.button('Click me', on_click=click_button)
-                    with st.button("Login",on_click=click_button):
                         if authenticate_user(email=email,password=password):
-                            # st.session_state.popup_closed = True
+                            st.session_state.popup_closed = True
                             st.session_state.user_authenticated = True
                             # disclaimer()
 
                         else:
                             st.caption('Incorrect Username or Password.')
+                        # st.session_state.popup_closed = True
+                    # st.button('Click me', on_click=click_button)
+                    st.button("Login",on_click=click_button):
+
 
 
                 with create_account_tab:
