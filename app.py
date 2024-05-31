@@ -277,32 +277,32 @@ def settings():
         "Code Shortener": SHORTENING_CONTEXT,
     }
 
-    with st.sidebar:
+    # with st.sidebar:
     #     # user_authentication_tab()
-        if st.session_state.user_authenticated:
-            with st.expander(label="Settings",expanded=True):
-                coding_settings_tab, chatbot_settings_tab = st.tabs(['Coding','ChatBot'])
-                with coding_settings_tab:
-                    language = st.selectbox(label="Language", options=languages)
-                    if language == "Python":
-                        libraries = st.multiselect(label="Libraries",options=python_libs)
-                        if not libraries:
-                            libraries = ""
-                    else:
-                        libraries=""
-                    scenario = st.selectbox(label="Scenario", options=scenarios, index=0)
-                    scenario_context = scenario_context_map.get(scenario, "")
-            
-                with chatbot_settings_tab:
-                    model = st.selectbox("Language Model", options=['CodeLlama','gpt-3.5-turbo','gpt-4-0613','gpt-4'])
-                    temperature = st.slider(label="Temperature", min_value=0.0, max_value=1.0, value=0.5)
-            
-            # with st.expander("Previous Chats", expanded=True):
-            #     selected_thread_id = st.selectbox(label="Previous Thread IDs", options=get_unique_thread_ids(), index=0)
-            #     if st.button("Render Chat"):
-            #         st.session_state.thread_id = selected_thread_id
-            #         st.session_state.chat_history = get_all_thread_messages(selected_thread_id)
-            #         st.experimental_rerun()
+    if st.session_state.user_authenticated:
+        with st.expander(label="Settings",expanded=True):
+            coding_settings_tab, chatbot_settings_tab = st.tabs(['Coding','ChatBot'])
+            with coding_settings_tab:
+                language = st.selectbox(label="Language", options=languages)
+                if language == "Python":
+                    libraries = st.multiselect(label="Libraries",options=python_libs)
+                    if not libraries:
+                        libraries = ""
+                else:
+                    libraries=""
+                scenario = st.selectbox(label="Scenario", options=scenarios, index=0)
+                scenario_context = scenario_context_map.get(scenario, "")
+        
+            with chatbot_settings_tab:
+                model = st.selectbox("Language Model", options=['CodeLlama','gpt-3.5-turbo','gpt-4-0613','gpt-4'])
+                temperature = st.slider(label="Temperature", min_value=0.0, max_value=1.0, value=0.5)
+        
+        # with st.expander("Previous Chats", expanded=True):
+        #     selected_thread_id = st.selectbox(label="Previous Thread IDs", options=get_unique_thread_ids(), index=0)
+        #     if st.button("Render Chat"):
+        #         st.session_state.thread_id = selected_thread_id
+        #         st.session_state.chat_history = get_all_thread_messages(selected_thread_id)
+        #         st.experimental_rerun()
 
 
 def handle_initial_submit():
@@ -463,10 +463,9 @@ def allapp_page():
 def resource_page():
     # st.sidebar.set_visible(False)
     st.write("This is the Resource page")
-    with st.sidebar:
-        handle_initial_submit()
-        handle_user_message()
-        display_convo()
+    handle_initial_submit()
+    handle_user_message()
+    display_convo()
 
 HOME = 'Home'
 APPLICATION = 'AI Assistant'
