@@ -44,7 +44,7 @@ os.environ["TOGETHER_API_KEY"]=st.secrets["togetherai_key"]
 from langchain_together import Together
 st.set_page_config(
     page_title='ZAZA',
-    page_icon=r"img\ZAZA.png",
+    page_icon=r"img/Logo_4.png",
     # initial_sidebar_state="expanded"
 )
 CodeLlama = Together(
@@ -507,7 +507,7 @@ chosen_tab = hc.option_bar(
 # streamlit_analytics.start_tracking()
 
 # Credit
-st.sidebar.image(r"img\Logo_4.png",width=150,use_column_width=True)
+st.sidebar.image(r"img/Logo_4.png",width=150,use_column_width=True)
 
 
 if __name__ == '__main__':
