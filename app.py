@@ -140,12 +140,12 @@ def load_lottiefile(filepath: str):
 
 
 user_authentication_tab()
-
-st.set_page_config(
-    page_title='ZAZA',
-    page_icon=r"img\ZAZA.png",
-    # initial_sidebar_state="expanded"
-)
+def set_page_config():
+    st.set_page_config(
+        page_title='ZAZA',
+        page_icon=r"img\ZAZA.png",
+        # initial_sidebar_state="expanded"
+    )
 # ******************************************************************************************************************************************************************************************************************************************************************************************************
 
 
@@ -517,7 +517,9 @@ if __name__ == '__main__':
     # settings()
     # home_page()
     if chosen_tab == HOME:
+        set_page_config()
         home_page()
+        
 
     elif chosen_tab == APPLICATION:
         resource_page()   
