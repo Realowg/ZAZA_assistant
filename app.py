@@ -326,7 +326,7 @@ def handle_initial_submit():
 
         initial_llm_chain =st.session_state.docs_chain
     else:
-        initial_llm_chain = create_llm_chain(initial_template,model,temperature)
+        initial_llm_chain = create_llm_chain(initial_template,st.session_state.model ,st.session_state.temperature)
     code_input = st.text_area(label=f"User Code", height=200)
     code_context = st.text_area(label="Additional Context", height=60)
     if (st.button(f'Submit Initial Input') and (code_input or code_context)):
