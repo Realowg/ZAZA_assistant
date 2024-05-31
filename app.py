@@ -42,7 +42,11 @@ os.environ["OPENAI_API_KEY"]=st.secrets["openai_key"]
 os.environ["TOGETHER_API_KEY"]=st.secrets["togetherai_key"]
 
 from langchain_together import Together
-
+st.set_page_config(
+    page_title='ZAZA',
+    page_icon=r"img\ZAZA.png",
+    # initial_sidebar_state="expanded"
+)
 CodeLlama = Together(
     model="codellama/CodeLlama-70b-Python-hf",
 
@@ -141,11 +145,7 @@ user_authentication_tab()
 
 
 # ******************************************************************************************************************************************************************************************************************************************************************************************************
-st.set_page_config(
-    page_title='ZAZA',
-    page_icon=r"img\ZAZA.png",
-    # initial_sidebar_state="expanded"
-)
+
 
 # if 'lottie' not in st.session_state:
 #     st.session_state.lottie = False
