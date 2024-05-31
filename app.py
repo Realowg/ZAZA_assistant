@@ -463,9 +463,10 @@ def allapp_page():
 def resource_page():
     # st.sidebar.set_visible(False)
     st.write("This is the Resource page")
-    handle_initial_submit()
-    handle_user_message()
-    display_convo()
+    with st.siderbar:
+        handle_initial_submit()
+        handle_user_message()
+        display_convo()
 
 HOME = 'Home'
 APPLICATION = 'AI Assistant'
@@ -524,7 +525,7 @@ if __name__ == '__main__':
         allapp_page()
 
     elif chosen_tab == CONTACT:
-        # settings()
+        settings()
         st.write("coming soon")
 
     for i in range(4):
