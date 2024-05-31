@@ -312,7 +312,6 @@ def handle_initial_submit():
         st.session_state.model = 'Codelllma'
     if 'temperature' not in st.session_state:
         st.session_state.temperature = 0.1
-    if not st.session_state.popup_closed:
     initial_template = PromptTemplate(
         input_variables=['input','language','scenario','scenario_context','code_context','libraries'],
         template= INITIAL_TEMPLATE
