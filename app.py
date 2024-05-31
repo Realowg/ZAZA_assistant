@@ -122,7 +122,7 @@ def user_authentication_tab():
                             st.caption('Incorrect Username or Password.')
                         # st.session_state.popup_closed = True
                     # st.button('Click me', on_click=click_button)
-                    st.button("Login",on_click=click_button):
+                    st.button("Login",on_click=click_button)
 
 
 
