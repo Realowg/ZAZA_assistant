@@ -43,7 +43,14 @@ os.environ["TOGETHER_API_KEY"]=st.secrets["togetherai_key"]
 
 from langchain_together import Together
 
-
+st.set_page_config(
+    page_title='ZAZA',
+    page_icon=r"img\ZAZA.png",
+    initial_sidebar_state='collapsed'
+    # initial_sidebar_state="expanded"
+)
+CodeLlama = Together(
+    model="codellama/CodeLlama-70b-Python-hf",
 
 
 def disclaimer():
@@ -143,13 +150,7 @@ def load_lottiefile(filepath: str):
 
 user_authentication_tab()
 
-st.set_page_config(
-    page_title='ZAZA',
-    page_icon=r"img\ZAZA.png",
-    # initial_sidebar_state="expanded"
-)
-CodeLlama = Together(
-    model="codellama/CodeLlama-70b-Python-hf",
+
 
 )
 # ******************************************************************************************************************************************************************************************************************************************************************************************************
@@ -459,7 +460,7 @@ def home_page():
 
 
 def allapp_page():
-    st.write("This is the All Application page")
+    # st.write("This is the All Application page")
     with st.expander("Previous Chats", expanded=True):
         selected_thread_id = st.selectbox(label="Previous Thread IDs", options=get_unique_thread_ids(), index=0)
         if st.button("Render Chat"):
@@ -470,10 +471,11 @@ def allapp_page():
 
 def resource_page():
     # st.sidebar.set_visible(False)
-    st.write("This is the Resource page")
-    handle_initial_submit()
-    handle_user_message()
-    display_convo()
+    with st.siderbar:
+        # st.write("This is the Resource page")
+        handle_initial_submit()
+        handle_user_message()
+        display_convo()
 
 HOME = 'Home'
 APPLICATION = 'AI Assistant'
