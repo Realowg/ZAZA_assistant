@@ -43,18 +43,12 @@ os.environ["TOGETHER_API_KEY"]=st.secrets["togetherai_key"]
 
 from langchain_together import Together
 
-st.set_page_config(
-    page_title='ZAZA',
-    page_icon=r"img\ZAZA.png",
-    initial_sidebar_state='collapsed'
-    # initial_sidebar_state="expanded"
-)
 CodeLlama = Together(
-    model="codellama/CodeLlama-70b-Python-hf",)
+    model="codellama/CodeLlama-70b-Python-hf",
 
-
+)
 def disclaimer():
-    modal2 = Modal(key="ZAZA Key", title="Disclaimers - Welcome to ZAZA AI Assistant", padding=5, max_width=900)
+    modal2 = Modal(key="ZAZA Key", title="Disclaimers - Welcome to ZAZA AI Assistant", padding=10, max_width=900)
 
     if 'popup_closed' not in st.session_state:
         st.session_state.popup_closed = False
@@ -97,10 +91,10 @@ def approve_email(email):
 
 
 def user_authentication_tab():
-    modal = Modal(key="ZAZA Key", title="Welcome to ZAZA AI Assistant", padding=15, max_width=800)
+    modal = Modal(key="ZAZA Key", title="Welcome to ZAZA AI Assistant", padding=5, max_width=800)
     if 'popup_closed' not in st.session_state:
         st.session_state.popup_closed = False
-    
+
     if not st.session_state.popup_closed:
         with modal.container():
             with st.expander("User Authentication", expanded=True):
@@ -110,10 +104,7 @@ def user_authentication_tab():
                 with login_tab:
                     email = st.text_input("Email:") 
                     password = st.text_input("Password:", type='password')
-                    def click_button():
-                        st.session_state.popup_closed = True
-
-                    if st.button("Login",on_click=click_button):
+                    if st.button("Login"):
                         if authenticate_user(email=email,password=password):
                             st.session_state.popup_closed = True
                             st.session_state.user_authenticated = True
@@ -121,8 +112,6 @@ def user_authentication_tab():
 
                         else:
                             st.caption('Incorrect Username or Password.')
-
-
 
 
                 with create_account_tab:
@@ -151,10 +140,12 @@ def load_lottiefile(filepath: str):
 user_authentication_tab()
 
 
-
-
 # ******************************************************************************************************************************************************************************************************************************************************************************************************
-
+st.set_page_config(
+    page_title='ZAZA',
+    page_icon=r"C:\Users\Midhun\upwork\Task-1\Eve-Coding-Assistant\AppV7\TFinder\TFinder\img\ZAZA.png",
+    # initial_sidebar_state="expanded"
+)
 
 # if 'lottie' not in st.session_state:
 #     st.session_state.lottie = False
@@ -260,7 +251,7 @@ def get_vectorstore(text_chunks):
 #     return conversation_chain
 
 
-def create_llm_chain(prompt_template,model):
+def create_llm_chain(prompt_template):
     memory = ConversationBufferMemory(input_key="input", memory_key="chat_history", )
     if model =='CodeLlama':
         llm=CodeLlama
@@ -326,7 +317,7 @@ def handle_initial_submit():
 
         initial_llm_chain =st.session_state.docs_chain
     else:
-        initial_llm_chain = create_llm_chain(initial_template,model)
+        initial_llm_chain = create_llm_chain(initial_template)
     code_input = st.text_area(label=f"User Code", height=200)
     code_context = st.text_area(label="Additional Context", height=60)
     if (st.button(f'Submit Initial Input') and (code_input or code_context)):
@@ -460,7 +451,7 @@ def home_page():
 
 
 def allapp_page():
-    # st.write("This is the All Application page")
+    st.write("This is the All Application page")
     with st.expander("Previous Chats", expanded=True):
         selected_thread_id = st.selectbox(label="Previous Thread IDs", options=get_unique_thread_ids(), index=0)
         if st.button("Render Chat"):
@@ -471,11 +462,10 @@ def allapp_page():
 
 def resource_page():
     # st.sidebar.set_visible(False)
-    # with st.sidebar:
-        # st.write("This is the Resource page")
-        handle_initial_submit()
-        handle_user_message()
-        display_convo()
+    st.write("This is the Resource page")
+    handle_initial_submit()
+    handle_user_message()
+    display_convo()
 
 HOME = 'Home'
 APPLICATION = 'AI Assistant'
@@ -517,7 +507,7 @@ chosen_tab = hc.option_bar(
 # streamlit_analytics.start_tracking()
 
 # Credit
-st.sidebar.image(r"img/Logo_4.png",width=150,use_column_width=True)
+st.sidebar.image(r"C:\Users\Midhun\upwork\ZAZA\project\img\Logo_4.png",width=150,use_column_width=True)
 
 
 if __name__ == '__main__':
@@ -525,9 +515,7 @@ if __name__ == '__main__':
     # settings()
     # home_page()
     if chosen_tab == HOME:
-
         home_page()
-        
 
     elif chosen_tab == APPLICATION:
         resource_page()   
