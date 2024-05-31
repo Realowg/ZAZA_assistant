@@ -114,7 +114,7 @@ def user_authentication_tab():
                     password = st.text_input("Password:", type='password')
                     def click_button():
                         st.session_state.popup_closed = True
-                    st.button('Click me', on_click=click_button)
+                    # st.button('Click me', on_click=click_button)
                     if st.button("Login",on_click=click_button):
                         if authenticate_user(email=email,password=password):
                             # st.session_state.popup_closed = True
