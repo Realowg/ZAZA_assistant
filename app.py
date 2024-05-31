@@ -88,12 +88,7 @@ def approve_email(email):
     else:
         return False
 
-def set_page_config():
-    st.set_page_config(
-        page_title='ZAZA',
-        page_icon=r"img\ZAZA.png",
-        # initial_sidebar_state="expanded"
-    )
+
 def user_authentication_tab():
     modal = Modal(key="ZAZA Key", title="Welcome to ZAZA AI Assistant", padding=15, max_width=800)
     if 'popup_closed' not in st.session_state:
@@ -147,7 +142,12 @@ def load_lottiefile(filepath: str):
 
 
 user_authentication_tab()
-set_page_config()
+
+st.set_page_config(
+    page_title='ZAZA',
+    page_icon=r"img\ZAZA.png",
+    # initial_sidebar_state="expanded"
+)
 CodeLlama = Together(
     model="codellama/CodeLlama-70b-Python-hf",
 
