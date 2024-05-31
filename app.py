@@ -294,8 +294,8 @@ def settings():
                 scenario_context = scenario_context_map.get(scenario, "")
         
             with chatbot_settings_tab:
-                model = st.selectbox("Language Model", options=['CodeLlama','gpt-3.5-turbo','gpt-4-0613','gpt-4'])
-                temperature = st.slider(label="Temperature", min_value=0.0, max_value=1.0, value=0.5)
+                st.session_state.model = st.selectbox("Language Model", options=['CodeLlama','gpt-3.5-turbo','gpt-4-0613','gpt-4'])
+                st.session_state.temperature = st.slider(label="Temperature", min_value=0.0, max_value=1.0, value=0.5)
         
         # with st.expander("Previous Chats", expanded=True):
         #     selected_thread_id = st.selectbox(label="Previous Thread IDs", options=get_unique_thread_ids(), index=0)
@@ -307,7 +307,12 @@ def settings():
 
 def handle_initial_submit():
     # settings()
-    global code_input, code_context
+    global code_input, code_contextx,model , temperature
+    if 'model' not in st.session_state:
+        st.session_state.model = 'Codelllma'
+    if 'temperature' not in st.session_state:
+        st.session_state.temperature = 0.1
+    if not st.session_state.popup_closed:
     initial_template = PromptTemplate(
         input_variables=['input','language','scenario','scenario_context','code_context','libraries'],
         template= INITIAL_TEMPLATE
