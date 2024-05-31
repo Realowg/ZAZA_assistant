@@ -313,9 +313,10 @@ def handle_initial_submit():
     # settings()
     global code_input, code_contextx,model , temperature
     if 'model' not in st.session_state:
-        st.session_state.model = 'Codelllma'
+        st.session_state.model = model = 'Codelllma'
     if 'temperature' not in st.session_state:
-        st.session_state.temperature = 0.1
+        st.session_state.temperature=temperature = 0.1
+    
     initial_template = PromptTemplate(
         input_variables=['input','language','scenario','scenario_context','code_context','libraries'],
         template= INITIAL_TEMPLATE
