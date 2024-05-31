@@ -91,11 +91,17 @@ def approve_email(email):
     else:
         return False
 
-
+def set_page_config():
+    st.set_page_config(
+        page_title='ZAZA',
+        page_icon=r"img\ZAZA.png",
+        # initial_sidebar_state="expanded"
+    )
 def user_authentication_tab():
     modal = Modal(key="ZAZA Key", title="Welcome to ZAZA AI Assistant", padding=15, max_width=800)
     if 'popup_closed' not in st.session_state:
         st.session_state.popup_closed = False
+    set_page_config()
 
     if not st.session_state.popup_closed:
         with modal.container():
@@ -140,13 +146,7 @@ def load_lottiefile(filepath: str):
 
 
 user_authentication_tab()
-def set_page_config():
-    st.set_page_config(
-        page_title='ZAZA',
-        page_icon=r"img\ZAZA.png",
-        # initial_sidebar_state="expanded"
-    )
-set_page_config()
+
 # ******************************************************************************************************************************************************************************************************************************************************************************************************
 
 
