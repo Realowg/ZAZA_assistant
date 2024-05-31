@@ -488,8 +488,14 @@ option_data = [
     {'icon': "📑", 'label': CONTACT},
 ]
 
-over_theme = {'txc_inactive': 'black', 'menu_background': '#D6E5FA', 'txc_active': 'white', 'option_active': '#749BC2'}
-font_fmt = {'font-class': 'h3', 'font-size': '50%'}
+over_theme = {'txc_inactive': '#6c6c6f',  # Matches the very dark grey text color
+              'menu_background': '#072f3e',  # Matches the very dark primary color
+              'txc_active': '#f7f7f8',  # Matches the very dark grey text color
+              'option_active': '#0f5f77'}  # Matches the original bright cyan color
+
+font_fmt = {'font-class': 'h3', 'font-size': '50%', 'color': '#f7f7f8'}  # Matches the very dark grey text color
+
+
 
 chosen_tab = hc.option_bar(
     option_definition=option_data,
