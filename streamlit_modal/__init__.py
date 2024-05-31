@@ -72,7 +72,7 @@ class Modal:
 
             div[data-modal-container='true'][key='{self.key}'] > div:first-child > div:first-child {{
                 width: unset !important;
-                background-color: #fff;
+                background-color: #1a232c;
                 padding: {self.padding}px;
                 margin-top: {2*self.padding}px;
                 margin-left: -{self.padding}px;
@@ -105,10 +105,6 @@ class Modal:
             if self.title:
                 _container.markdown(
                     f"<h2>{self.title}</h2>", unsafe_allow_html=True)
-
-                # close_ = st.button('X', key=f'{self.key}-close')
-                # if close_:
-                #     self.close()
 
         components.html(
             f"""
