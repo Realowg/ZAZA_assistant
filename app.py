@@ -45,7 +45,7 @@ from langchain_together import Together
 st.set_page_config(
     page_title='ZAZA',
     page_icon=r"img/Logo_4.png",
-    # initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 CodeLlama = Together(
     model="codellama/CodeLlama-70b-Python-hf",
@@ -306,7 +306,7 @@ def settings():
 
 
 def handle_initial_submit():
-    settings()
+    # settings()
     global code_input, code_context
     initial_template = PromptTemplate(
         input_variables=['input','language','scenario','scenario_context','code_context','libraries'],
