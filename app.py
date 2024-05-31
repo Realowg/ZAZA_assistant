@@ -101,7 +101,7 @@ def user_authentication_tab():
     modal = Modal(key="ZAZA Key", title="Welcome to ZAZA AI Assistant", padding=15, max_width=800)
     if 'popup_closed' not in st.session_state:
         st.session_state.popup_closed = False
-    set_page_config()
+    
 
     if not st.session_state.popup_closed:
         with modal.container():
@@ -109,6 +109,7 @@ def user_authentication_tab():
                 login_tab, create_account_tab = st.tabs(["Login", "Create Account"])
             # if "user_authenticated" not in st.session_state:
                 st.session_state['user_authenticated'] = False
+                set_page_config()
                 with login_tab:
                     email = st.text_input("Email:") 
                     password = st.text_input("Password:", type='password')
