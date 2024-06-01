@@ -41,6 +41,9 @@ os.environ["OPENAI_API_KEY"]=st.secrets["openai_key"]
 
 os.environ["TOGETHER_API_KEY"]=st.secrets["togetherai_key"]
 
+
+
+
 from langchain_together import Together
 st.set_page_config(
     page_title='ZAZA',
@@ -49,8 +52,11 @@ st.set_page_config(
 )
 CodeLlama = Together(
     model="codellama/CodeLlama-70b-Python-hf",
-
+    temperature=0.1,
+    max_tokens=512
 )
+
+
 def disclaimer():
     modal2 = Modal(key="ZAZA Key", title="Disclaimers - Welcome to ZAZA AI Assistant", padding=10, max_width=900)
 
@@ -257,11 +263,18 @@ def get_vectorstore(text_chunks):
 
 def create_llm_chain(prompt_template,model,temperature):
     memory = ConversationBufferMemory(input_key="input", memory_key="chat_history", )
-    if model =='CodeLlama':
-        llm=CodeLlama
+    print("*************************************************************************************************")
+    print(model)
+    if model == 'CodeLlama':
+        CodeLlama = Together(
+    model="codellama/CodeLlama-70b-Python-hf",
+    temperature=temperature,
+    max_tokens=512
+)
+        return LLMChain(prompt=prompt_template, llm=CodeLlama)
     else:
         llm = ChatOpenAI(temperature=temperature, model_name=model)
-    return LLMChain(llm=llm, prompt=prompt_template, memory=memory,output_key="result")
+        return LLMChain(llm=llm, prompt=prompt_template, memory=memory,output_key="result")
 
 def settings():
     global language, scenario, temperature, model, scenario_context, libraries, pdf_docs, uploaded_docs
@@ -287,15 +300,15 @@ def settings():
     with st.expander(label="Settings",expanded=True):
         coding_settings_tab, chatbot_settings_tab = st.tabs(['Coding','ChatBot'])
         with coding_settings_tab:
-            language = st.selectbox(label="Language", options=languages)
-            if language == "Python":
-                libraries = st.multiselect(label="Libraries",options=python_libs)
-                if not libraries:
-                    libraries = ""
+            st.session_state.language = st.selectbox(label="Language", options=languages)
+            if st.session_state.language == "Python":
+                st.session_state.libraries = st.multiselect(label="Libraries",options=python_libs)
+                if not st.session_state.libraries:
+                    st.session_state.libraries = ""
             else:
-                libraries=""
-            scenario = st.selectbox(label="Scenario", options=scenarios, index=0)
-            scenario_context = scenario_context_map.get(scenario, "")
+                st.session_state.libraries=""
+            st.session_state.scenario = st.selectbox(label="Scenario", options=scenarios, index=0)
+            st.session_state.scenario_context = scenario_context_map.get(st.session_state.scenario, "")
     
         with chatbot_settings_tab:
             st.session_state.model = st.selectbox("Language Model", options=['CodeLlama','gpt-3.5-turbo','gpt-4-0613','gpt-4'])
@@ -313,10 +326,17 @@ def handle_initial_submit():
     # settings()
     global code_input, code_contextx,model , temperature
     if 'model' not in st.session_state:
-        st.session_state.model = model = 'Codelllma'
+        st.session_state.model = model = 'CodeLlama'
     if 'temperature' not in st.session_state:
         st.session_state.temperature=temperature = 0.1
-    
+    if 'language' not in st.session_state:
+        st.session_state.language ='Python'
+    if 'scenario' not in st.session_state:
+        st.session_state.scenario ='Code Generation' 
+    if 'scenario_context' not in st.session_state:
+        st.session_state.scenario_context =CORRECTION_CONTEXT 
+    if 'libraries' not in st.session_state:
+        st.session_state.libraries ='Pandas' 
     initial_template = PromptTemplate(
         input_variables=['input','language','scenario','scenario_context','code_context','libraries'],
         template= INITIAL_TEMPLATE
@@ -328,7 +348,10 @@ def handle_initial_submit():
     else:
         initial_llm_chain = create_llm_chain(initial_template,st.session_state.model ,st.session_state.temperature)
     code_input = st.text_area(label=f"User Code", height=200)
+ 
     code_context = st.text_area(label="Additional Context", height=60)
+
+
     if (st.button(f'Submit Initial Input') and (code_input or code_context)):
         with st.spinner('Generating Response...'):
             if st.session_state.docs_processed:
@@ -342,10 +365,10 @@ def handle_initial_submit():
             else: 
                 initial_response = initial_llm_chain.run(input=code_input,
                                                         code_context=code_context, 
-                                                        language=language, 
-                                                        scenario=scenario,
-                                                        scenario_context=scenario_context,
-                                                        libraries=libraries)
+                                                        language=st.session_state.language, 
+                                                        scenario=st.session_state.scenario,
+                                                        scenario_context=st.session_state.scenario_context,
+                                                        libraries=st.session_state.libraries)
         st.session_state.update({
             'initial_input': code_input,
             'initial_context': code_context,
@@ -363,14 +386,28 @@ def handle_initial_submit():
 
 
 def handle_user_message():
+    
     chat_template = PromptTemplate(
         input_variables=['input','language','scenario','scenario_context','chat_history','libraries','code_input','code_context','most_recent_ai_message'],
         template=CHAT_TEMPLATE
     )
+    if 'model' not in st.session_state:
+        st.session_state.model = 'CodeLlama'
+    if 'temperature' not in st.session_state:
+        st.session_state.temperature = 0.1
+    if 'language' not in st.session_state:
+        st.session_state.language ='Python'
+    if 'scenario' not in st.session_state:
+        st.session_state.scenario ='Code Generation' 
+    if 'scenario_context' not in st.session_state:
+        st.session_state.scenario_context =CORRECTION_CONTEXT  
+    if 'libraries' not in st.session_state:
+        st.session_state.libraries ='Pandas' 
     if st.session_state.docs_processed:
         chat_llm_chain = st.session_state.docs_chain
     else:
-        chat_llm_chain = create_llm_chain(prompt_template=chat_template)
+
+        chat_llm_chain = create_llm_chain(prompt_template=chat_template,model=st.session_state.model ,temperature=st.session_state.temperature)
     if st.session_state.chat_history:
         user_message = st.text_area("Further Questions for Coding AI?", key="user_input", height=60)
         if st.button("Submit Message") and user_message:
@@ -388,11 +425,11 @@ def handle_user_message():
                     chat_response = chat_llm_chain({'question':chat_input})['answer']
                 else:
                     chat_response = chat_llm_chain.run(input=user_message,
-                                                        language=language, 
-                                                        scenario=scenario,
-                                                        scenario_context=scenario_context,
+                                                        language=st.session_state.language, 
+                                                        scenario=st.session_state.scenario,
+                                                        scenario_context=st.session_state.scenario_context,
                                                         chat_history=st.session_state.chat_history,
-                                                        libraries=libraries,
+                                                        libraries=st.session_state.libraries,
                                                         code_input=st.session_state.initial_input,
                                                         code_context=st.session_state.initial_context,
                                                         most_recent_ai_message=most_recent_ai_message)
@@ -427,13 +464,13 @@ def handle_user_message():
 #             else:
 #                 st.markdown(bot_template.replace("{{MSG}}", message), unsafe_allow_html=True)
 user_template = """
-<div style="background-color: #DCF8C6; padding: 10px; border-radius: 10px; margin-bottom: 10px;">
+<div style="background-color: #2b3b47; padding: 10px; border-radius: 10px; margin-bottom: 10px;">
     <strong>User:</strong> {{MSG}}
 </div>
 """
 
 bot_template = """
-<div style="background-color: #E1F3FB; padding: 10px; border-radius: 10px; margin-bottom: 10px;">
+<div style="background-color: #2b3b47; padding: 10px; border-radius: 10px; margin-bottom: 10px;">
     <strong>Bot:</strong> {{MSG}}
 </div>
 """
