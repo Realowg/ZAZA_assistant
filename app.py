@@ -101,7 +101,7 @@ def approve_email(email):
 
 
 def user_authentication_tab():
-    modal = Modal(key="ZAZA Key", title="Welcome to ZAZA AI Assistant", padding=5, max_width=800)
+    modal = Modal(key="ZAZA Key", title="Welcome to ZAZA AI Assistant", padding=15, max_width=800)
     if 'popup_closed' not in st.session_state:
         st.session_state.popup_closed = False
 
