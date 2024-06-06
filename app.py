@@ -651,7 +651,8 @@ if __name__ == '__main__':
 
     elif chosen_tab == SETTINGS:
         # settings()
-        st.write("coming soon")
+        # st.write("coming soon")
+        admin_login()
 
     for i in range(4):
         st.markdown('#')
