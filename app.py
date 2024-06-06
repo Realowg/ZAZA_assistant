@@ -508,28 +508,34 @@ def allapp_page():
 
 def resource_page():
     # st.sidebar.set_visible(False)
-    st.write("This is the Resource page")
-    handle_initial_submit()
-    handle_user_message()
-    display_convo()
+    # st.write("This is the Resource page")
+    tab1, tab2= st.tabs(["ZAZA AI ASSISTANT", "MODELS"])
+
+    with tab1:
+
+        handle_initial_submit()
+        handle_user_message()
+        display_convo()
+    with tab2:
+        settings()
 
 HOME = 'Home'
 APPLICATION = 'AI Assistant'
 RESOURCE = 'Session History'
-CONTACT = 'Settings'
+SETTINGS = 'Settings'
 
 tabs = [
     HOME,
     APPLICATION,
     RESOURCE,
-    CONTACT
+    SETTINGS
 ]
 
 option_data = [
     {'icon': "🏠", 'label': HOME},
     {'icon': "🖥️", 'label': APPLICATION},
     {'icon': "📑", 'label': RESOURCE},
-    {'icon': "📑", 'label': CONTACT},
+    {'icon': "📑", 'label': SETTINGS},
 ]
 
 over_theme = {'txc_inactive': '#6c6c6f',  # Matches the very dark grey text color
@@ -569,9 +575,9 @@ if __name__ == '__main__':
     elif chosen_tab == RESOURCE:
         allapp_page()
 
-    elif chosen_tab == CONTACT:
-        settings()
-        # st.write("coming soon")
+    elif chosen_tab == SETTINGS:
+        # settings()
+        st.write("coming soon")
 
     for i in range(4):
         st.markdown('#')
