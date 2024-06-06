@@ -263,18 +263,50 @@ def get_vectorstore(text_chunks):
 
 def create_llm_chain(prompt_template,model,temperature):
     memory = ConversationBufferMemory(input_key="input", memory_key="chat_history", )
-    print("*************************************************************************************************")
-    print(model)
     if model == 'CodeLlama':
         CodeLlama = Together(
     model="codellama/CodeLlama-70b-Python-hf",
     temperature=temperature,
+    max_tokens=512)
+        return LLMChain(prompt=prompt_template, llm=CodeLlama)
+    
+    elif model == 'WizardLM':
+        WizardLM = Together(
+    model="microsoft/WizardLM-2-8x22B",
+    temperature=temperature,
     max_tokens=512
 )
-        return LLMChain(prompt=prompt_template, llm=CodeLlama)
+        return LLMChain(prompt=prompt_template, llm=WizardLM)
+
+    elif model == 'Llama_3':
+        Llama_3 = Together(
+    model="meta-llama/Llama-3-8b-chat-hf",
+    temperature=temperature,
+    max_tokens=512
+)
+        return LLMChain(prompt=prompt_template, llm=Llama_3)
+
+    elif model == 'CodeLlama_34b':
+        CodeLlama_34b = Together(
+        model="codellama/CodeLlama-34b-Instruct-hf",
+        temperature=temperature,
+        max_tokens=512
+    )
+        return LLMChain(prompt=prompt_template, llm=CodeLlama_34b)
+
+    elif model == 'Llama_3_70b':
+        Llama_3_70b = Together(
+    model="meta-llama/Llama-3-70b-chat-hf",
+    temperature=temperature,
+    max_tokens=512
+)
+        return LLMChain(prompt=prompt_template, llm=Llama_3_70b)
+
+
     else:
         llm = ChatOpenAI(temperature=temperature, model_name=model)
         return LLMChain(llm=llm, prompt=prompt_template, memory=memory,output_key="result")
+
 
 def settings():
     global language, scenario, temperature, model, scenario_context, libraries, pdf_docs, uploaded_docs
@@ -311,7 +343,7 @@ def settings():
             st.session_state.scenario_context = scenario_context_map.get(st.session_state.scenario, "")
     
         with chatbot_settings_tab:
-            st.session_state.model = st.selectbox("Language Model", options=['CodeLlama','gpt-3.5-turbo','gpt-4-0613','gpt-4'])
+            st.session_state.model = st.selectbox("Language Model", options=['CodeLlama','gpt-3.5-turbo','gpt-4-0613','gpt-4','Llama_3_70b','CodeLlama_34b','Llama_3','WizardLM'])
             st.session_state.temperature = st.slider(label="Temperature", min_value=0.0, max_value=1.0, value=0.5)
     
     # with st.expander("Previous Chats", expanded=True):
