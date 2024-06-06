@@ -551,6 +551,48 @@ def resource_page():
     with tab2:
         settings()
 
+def get_table_names():
+    """Fetch table names from the SQLite database."""
+    try:
+        conn = sqlite3.connect('MASTER.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        tables = cursor.fetchall()
+        conn.close()
+        return [table[0] for table in tables]
+    except Exception as e:
+        st.error(f"Error fetching tables: {e}")
+        return []
+
+def admin_login():
+    # Create a tab for Admin Login
+    tabs = st.tabs(["Admin Login"])
+
+    with tabs[0]:
+        st.header("Admin Login")
+
+        # Input fields for username and password
+        username = st.text_input("Username", "")
+        password = st.text_input("Password", "", type="password")
+
+        # Login button
+        if st.button("Login"):
+            # Simple hardcoded check (replace this with your authentication logic)
+            if username == "admin" and password == "admin123":
+                st.success("Login successful!")
+                st.write("Welcome, Admin!")
+                
+                # Fetch and display tables
+                st.subheader("Tables in MASTER.db")
+                tables = get_table_names()
+                if tables:
+                    for table in tables:
+                        with st.container():
+                            st.write(f"Table: {table}")
+                else:
+                    st.write("No tables found in the database.")
+            else:
+                st.error("Invalid username or password")
 HOME = 'Home'
 APPLICATION = 'AI Assistant'
 RESOURCE = 'Session History'
