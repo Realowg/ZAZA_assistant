@@ -310,7 +310,7 @@ def create_llm_chain(prompt_template,model,temperature):
 
 def settings():
     global language, scenario, temperature, model, scenario_context, libraries, pdf_docs, uploaded_docs
-    languages = sorted(['Python', 'GoLang','TypeScript', 'JavaScript', 'Java', 'C', 'C++', 'C#', 'R', 'SQL'])
+    languages = sorted(['Python', "Java","C++","JavaScript","Node.js","React","Angular","Vue.js","HTML/CSS","SQL","MongoDB","PostgreSQL","MySQL","Django","Flask","Spring Boot","Hibernate","TypeScript"])
     python_libs = sorted(['SQLite','PyGame','Seaborn',"Pandas",'Numpy','Scipy','Scikit-Learn','PyTorch','TensorFlow','Streamlit','Flask','FastAPI'])
     scenarios = ['General Assistant', 'Code Correction', 'Code Completion', 'Code Commenting', 'Code Optimization', 
                  'Code Shortener','Code Generation', 'Code Explanation', 'LeetCode Solver']
