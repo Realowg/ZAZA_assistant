@@ -51,7 +51,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 CodeLlama = Together(
-    model="codellama/CodeLlama-70b-Python-hf",
+    model="codellama/CodeLlama-34b-Instruct-hf",
     temperature=0.1,
     max_tokens=512
 )
@@ -265,7 +265,7 @@ def create_llm_chain(prompt_template,model,temperature):
     memory = ConversationBufferMemory(input_key="input", memory_key="chat_history", )
     if model == 'CodeLlama':
         CodeLlama = Together(
-    model="codellama/CodeLlama-70b-Python-hf",
+    model="codellama/CodeLlama-34b-Instruct-hf",
     temperature=temperature,
     max_tokens=512)
         return LLMChain(prompt=prompt_template, llm=CodeLlama)
